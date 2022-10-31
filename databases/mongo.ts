@@ -13,7 +13,7 @@ try {
     console.log(err);
 }
 console.log(client);
-
+console.log(config[Env.MongoDbUri])
 const db = client.database("test");
 
 console.log(db);

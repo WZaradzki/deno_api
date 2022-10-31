@@ -5,13 +5,15 @@ import { config } from "../config/config.ts";
 import { Env } from "../types/env.ts";
 // Mongo Connection Init
 const client = new MongoClient();
+
 try {
     await client.connect(config[Env.MongoDbUri]);
     console.log("Database successfully connected");
 } catch (err) {
     console.log(err);
 }
+console.log(client);
 
-const db = client.database("test");
+const db = client.database("admin");
 export const users = db.collection<User>("users");
 export const roles = db.collection<Role>("roles");

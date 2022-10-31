@@ -6,6 +6,9 @@ import { Env } from "../types/env.ts";
 // Mongo Connection Init
 const client = new MongoClient();
 
+console.log('deno.env', Deno.env.get("ENV"))
+console.log('config', config)
+
 try {
     await client.connect(config[Env.MongoDbUri]);
     console.log("Database successfully connected");

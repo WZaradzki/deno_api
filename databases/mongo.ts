@@ -15,11 +15,10 @@ try {
 } catch (err) {
     console.log(err);
 }
-console.log(client);
-console.log(config[Env.MongoDbUri])
+
 const db = client.database("test");
 
-console.log(db);
+console.log('db', db);
 
 export const users = db.collection<User>("users");
 export const roles = db.collection<Role>("roles");

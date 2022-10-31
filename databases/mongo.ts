@@ -12,6 +12,6 @@ try {
     console.log(err);
 }
 
-const db = client.database("admin");
+const db = client.database("test");
 export const users = db.collection<User>("users");
 export const roles = db.collection<Role>("roles");

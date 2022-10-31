@@ -6,7 +6,7 @@ import { Env } from "../types/env.ts";
 // Mongo Connection Init
 const client = new MongoClient();
 
-console.log('deno.env', Deno.env.get("ENV"))
+console.log('deno.env', Deno.env.get("MONGO_DB_URI"))
 console.log('config', config)
 
 try {

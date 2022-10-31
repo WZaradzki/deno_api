@@ -6,19 +6,14 @@ import { Env } from "../types/env.ts";
 // Mongo Connection Init
 const client = new MongoClient();
 
-console.log('deno.env', Deno.env.get("MONGO_DB_URI"))
-console.log('config', config)
-
 try {
-    await client.connect(config[Env.MongoDbUri]);
+    await client.connect(config[Env.MongoDbUri] ?? Deno.env.get("MONGO_DB_URI"));
     console.log("Database successfully connected");
 } catch (err) {
     console.log(err);
 }
 
 const db = client.database("test");
-
-console.log('db', db);
 
 export const users = db.collection<User>("users");
 export const roles = db.collection<Role>("roles");

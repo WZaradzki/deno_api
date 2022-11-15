@@ -1,7 +1,7 @@
-
+const exports = {}
 Object.defineProperty(exports, "__esModule", { value: true });
 
-const {
+import {
   PrismaClientKnownRequestError,
   PrismaClientUnknownRequestError,
   PrismaClientRustPanicError,
@@ -19,8 +19,7 @@ const {
   objectEnumValues,
   makeStrictEnum,
   Extensions
-} = require('./runtime/edge')
-
+} from '.././runtime/edge-esm.js'
 
 const Prisma = {}
 
@@ -129,7 +128,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "/Users/wiktorzaradzki/dev/wzd/denoDomin/generated/client",
+      "value": "/Users/wiktorzaradzki/dev/wzd/denoDomin/prisma/client",
       "fromEnvVar": null
     },
     "config": {
@@ -145,7 +144,7 @@ const config = {
     "rootEnvPath": "../../.env",
     "schemaEnvPath": "../../.env"
   },
-  "relativePath": "../../prisma",
+  "relativePath": "..",
   "clientVersion": "4.6.1",
   "engineVersion": "694eea289a8462c80264df36757e4fdc129b1b32",
   "datasourceNames": [
@@ -157,8 +156,8 @@ const config = {
 config.document = dmmf
 config.dirname = dirname
 
-config.inlineSchema = 'Z2VuZXJhdG9yIGNsaWVudCB7CiAgcHJvdmlkZXIgICAgICAgID0gInByaXNtYS1jbGllbnQtanMiCiAgcHJldmlld0ZlYXR1cmVzID0gWyJkZW5vIl0KICBvdXRwdXQgICAgICAgICAgPSAiLi4vZ2VuZXJhdGVkL2NsaWVudCIKfQoKZGF0YXNvdXJjZSBkYiB7CiAgcHJvdmlkZXIgPSAibXlzcWwiCiAgdXJsICAgICAgPSBlbnYoIkRBVEFCQVNFX1VSTCIpCn0KCm1vZGVsIFJvbGUgewogIGlkICAgICAgICBTdHJpbmcgICBAaWQKICBuYW1lICAgICAgU3RyaW5nICAgQHVuaXF1ZQogIGNyZWF0ZWRBdCBEYXRlVGltZSBAZGVmYXVsdChub3coKSkKICBVc2VyICAgICAgVXNlcltdCgogIEBAaW5kZXgoW25hbWVdKQp9Cgptb2RlbCBVc2VyIHsKICBpZCAgICAgICAgU3RyaW5nICAgIEBpZAogIGVtYWlsICAgICBTdHJpbmcgICAgQHVuaXF1ZQogIG5hbWUgICAgICBTdHJpbmc/CiAgc3VybmFtZSAgIFN0cmluZz8KICB1cGRhdGVkQXQgRGF0ZVRpbWUKICBjcmVhdGVkQXQgRGF0ZVRpbWUgIEBkZWZhdWx0KG5vdygpKQogIGRlbGV0ZWQgICBEYXRlVGltZT8KICByb2xlICAgICAgUm9sZSAgICAgIEByZWxhdGlvbihmaWVsZHM6IFtyb2xlSWRdLCByZWZlcmVuY2VzOiBbaWRdKQogIHJvbGVJZCAgICBTdHJpbmcKCiAgQEBpbmRleChbY3JlYXRlZEF0XSkKICBAQGluZGV4KFtlbWFpbF0pCiAgQEBpbmRleChbbmFtZSwgc3VybmFtZV0pCn0K'
-config.inlineSchemaHash = 'c776b0823363a89fa5deb157c185d89d43a96e03aeb83d7c68839a2f64e18f3a'
+config.inlineSchema = 'Z2VuZXJhdG9yIGNsaWVudCB7CiAgcHJvdmlkZXIgICAgICAgID0gInByaXNtYS1jbGllbnQtanMiCiAgcHJldmlld0ZlYXR1cmVzID0gWyJkZW5vIl0KICBvdXRwdXQgICAgICAgICAgPSAiLi4vcHJpc21hL2NsaWVudCIKfQoKZGF0YXNvdXJjZSBkYiB7CiAgcHJvdmlkZXIgPSAibXlzcWwiCiAgdXJsICAgICAgPSBlbnYoIkRBVEFCQVNFX1VSTCIpCn0KCm1vZGVsIFJvbGUgewogIGlkICAgICAgICBTdHJpbmcgICBAaWQKICBuYW1lICAgICAgU3RyaW5nICAgQHVuaXF1ZQogIGNyZWF0ZWRBdCBEYXRlVGltZSBAZGVmYXVsdChub3coKSkKICBVc2VyICAgICAgVXNlcltdCgogIEBAaW5kZXgoW25hbWVdKQp9Cgptb2RlbCBVc2VyIHsKICBpZCAgICAgICAgU3RyaW5nICAgIEBpZAogIGVtYWlsICAgICBTdHJpbmcgICAgQHVuaXF1ZQogIG5hbWUgICAgICBTdHJpbmc/CiAgc3VybmFtZSAgIFN0cmluZz8KICB1cGRhdGVkQXQgRGF0ZVRpbWUKICBjcmVhdGVkQXQgRGF0ZVRpbWUgIEBkZWZhdWx0KG5vdygpKQogIGRlbGV0ZWQgICBEYXRlVGltZT8KICByb2xlICAgICAgUm9sZSAgICAgIEByZWxhdGlvbihmaWVsZHM6IFtyb2xlSWRdLCByZWZlcmVuY2VzOiBbaWRdKQogIHJvbGVJZCAgICBTdHJpbmcKCiAgQEBpbmRleChbY3JlYXRlZEF0XSkKICBAQGluZGV4KFtlbWFpbF0pCiAgQEBpbmRleChbbmFtZSwgc3VybmFtZV0pCn0K'
+config.inlineSchemaHash = '3c5f901d9431aaccb69f222cab655a0a95802d49d4054d857c700b819c59b05c'
 
 config.inlineDatasources = {
   "db": {
@@ -182,4 +181,5 @@ if (typeof globalThis !== 'undefined' && globalThis['DEBUG'] || typeof process !
 const PrismaClient = getPrismaClient(config)
 exports.PrismaClient = PrismaClient
 Object.assign(exports, Prisma)
+export { exports as default, Prisma, PrismaClient }
 

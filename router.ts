@@ -7,7 +7,7 @@ import UsersController from "./controllers/UsersController.ts";
 const router = new Router();
 
 router.get("/api/users", UsersController.list);
-router.post("/api/users", UsersController.create)
+// router.post("/api/users", UsersController.create)
 
 router.get("/api/roles", RolesController.list);
 router.post("/api/roles", RolesController.create)

@@ -1,7 +1,7 @@
-const exports = {}
+
 Object.defineProperty(exports, "__esModule", { value: true });
 
-import {
+const {
   PrismaClientKnownRequestError,
   PrismaClientUnknownRequestError,
   PrismaClientRustPanicError,
@@ -19,7 +19,8 @@ import {
   objectEnumValues,
   makeStrictEnum,
   Extensions
-} from '.././runtime/edge-esm.js'
+} = require('./runtime/index')
+
 
 const Prisma = {}
 
@@ -66,7 +67,24 @@ Prisma.NullTypes = {
 }
 
 
-const dirname = '/'
+  const path = require('path')
+
+const { findSync } = require('./runtime')
+const fs = require('fs')
+
+// some frameworks or bundlers replace or totally remove __dirname
+const hasDirname = typeof __dirname !== 'undefined' && __dirname !== '/'
+
+// will work in most cases, ie. if the client has not been bundled
+const regularDirname = hasDirname && fs.existsSync(path.join(__dirname, 'schema.prisma')) && __dirname
+
+// if the client has been bundled, we need to look for the folders
+const foundDirname = !regularDirname && findSync(process.cwd(), [
+    "prisma/client",
+    "client",
+], ['d'], ['d'], 1)[0]
+
+const dirname = regularDirname || foundDirname || __dirname
 
 /**
  * Enums
@@ -128,7 +146,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "/Users/wiktorzaradzki/dev/wzd/denoDomin/generated/client",
+      "value": "/Users/wiktorzaradzki/dev/wzd/denoDomin/prisma/client",
       "fromEnvVar": null
     },
     "config": {
@@ -144,7 +162,7 @@ const config = {
     "rootEnvPath": "../../.env",
     "schemaEnvPath": "../../.env"
   },
-  "relativePath": "../../prisma",
+  "relativePath": "..",
   "clientVersion": "4.6.1",
   "engineVersion": "694eea289a8462c80264df36757e4fdc129b1b32",
   "datasourceNames": [
@@ -156,8 +174,8 @@ const config = {
 config.document = dmmf
 config.dirname = dirname
 
-config.inlineSchema = 'Z2VuZXJhdG9yIGNsaWVudCB7CiAgcHJvdmlkZXIgICAgICAgID0gInByaXNtYS1jbGllbnQtanMiCiAgcHJldmlld0ZlYXR1cmVzID0gWyJkZW5vIl0KICBvdXRwdXQgICAgICAgICAgPSAiLi4vZ2VuZXJhdGVkL2NsaWVudCIKfQoKZGF0YXNvdXJjZSBkYiB7CiAgcHJvdmlkZXIgPSAibXlzcWwiCiAgdXJsICAgICAgPSBlbnYoIkRBVEFCQVNFX1VSTCIpCn0KCm1vZGVsIFJvbGUgewogIGlkICAgICAgICBTdHJpbmcgICBAaWQKICBuYW1lICAgICAgU3RyaW5nICAgQHVuaXF1ZQogIGNyZWF0ZWRBdCBEYXRlVGltZSBAZGVmYXVsdChub3coKSkKICBVc2VyICAgICAgVXNlcltdCgogIEBAaW5kZXgoW25hbWVdKQp9Cgptb2RlbCBVc2VyIHsKICBpZCAgICAgICAgU3RyaW5nICAgIEBpZAogIGVtYWlsICAgICBTdHJpbmcgICAgQHVuaXF1ZQogIG5hbWUgICAgICBTdHJpbmc/CiAgc3VybmFtZSAgIFN0cmluZz8KICB1cGRhdGVkQXQgRGF0ZVRpbWUKICBjcmVhdGVkQXQgRGF0ZVRpbWUgIEBkZWZhdWx0KG5vdygpKQogIGRlbGV0ZWQgICBEYXRlVGltZT8KICByb2xlICAgICAgUm9sZSAgICAgIEByZWxhdGlvbihmaWVsZHM6IFtyb2xlSWRdLCByZWZlcmVuY2VzOiBbaWRdKQogIHJvbGVJZCAgICBTdHJpbmcKCiAgQEBpbmRleChbY3JlYXRlZEF0XSkKICBAQGluZGV4KFtlbWFpbF0pCiAgQEBpbmRleChbbmFtZSwgc3VybmFtZV0pCn0K'
-config.inlineSchemaHash = 'c776b0823363a89fa5deb157c185d89d43a96e03aeb83d7c68839a2f64e18f3a'
+config.inlineSchema = 'Z2VuZXJhdG9yIGNsaWVudCB7CiAgcHJvdmlkZXIgICAgICAgID0gInByaXNtYS1jbGllbnQtanMiCiAgcHJldmlld0ZlYXR1cmVzID0gWyJkZW5vIl0KICBvdXRwdXQgICAgICAgICAgPSAiLi4vcHJpc21hL2NsaWVudCIKfQoKZGF0YXNvdXJjZSBkYiB7CiAgcHJvdmlkZXIgPSAibXlzcWwiCiAgdXJsICAgICAgPSBlbnYoIkRBVEFCQVNFX1VSTCIpCn0KCm1vZGVsIFJvbGUgewogIGlkICAgICAgICBTdHJpbmcgICBAaWQKICBuYW1lICAgICAgU3RyaW5nICAgQHVuaXF1ZQogIGNyZWF0ZWRBdCBEYXRlVGltZSBAZGVmYXVsdChub3coKSkKICBVc2VyICAgICAgVXNlcltdCgogIEBAaW5kZXgoW25hbWVdKQp9Cgptb2RlbCBVc2VyIHsKICBpZCAgICAgICAgU3RyaW5nICAgIEBpZAogIGVtYWlsICAgICBTdHJpbmcgICAgQHVuaXF1ZQogIG5hbWUgICAgICBTdHJpbmc/CiAgc3VybmFtZSAgIFN0cmluZz8KICB1cGRhdGVkQXQgRGF0ZVRpbWUKICBjcmVhdGVkQXQgRGF0ZVRpbWUgIEBkZWZhdWx0KG5vdygpKQogIGRlbGV0ZWQgICBEYXRlVGltZT8KICByb2xlICAgICAgUm9sZSAgICAgIEByZWxhdGlvbihmaWVsZHM6IFtyb2xlSWRdLCByZWZlcmVuY2VzOiBbaWRdKQogIHJvbGVJZCAgICBTdHJpbmcKCiAgQEBpbmRleChbY3JlYXRlZEF0XSkKICBAQGluZGV4KFtlbWFpbF0pCiAgQEBpbmRleChbbmFtZSwgc3VybmFtZV0pCn0K'
+config.inlineSchemaHash = '3c5f901d9431aaccb69f222cab655a0a95802d49d4054d857c700b819c59b05c'
 
 config.inlineDatasources = {
   "db": {
@@ -168,18 +186,15 @@ config.inlineDatasources = {
   }
 }
 
-config.injectableEdgeEnv = {
-  parsed: {
-    DATABASE_URL: typeof globalThis !== 'undefined' && globalThis['DATABASE_URL'] || typeof process !== 'undefined' && process.env && process.env.DATABASE_URL || undefined
-  }
-}
 
-if (typeof globalThis !== 'undefined' && globalThis['DEBUG'] || typeof process !== 'undefined' && process.env && process.env.DEBUG || undefined) {
-  Debug.enable(typeof globalThis !== 'undefined' && globalThis['DEBUG'] || typeof process !== 'undefined' && process.env && process.env.DEBUG || undefined)
-}
+const { warnEnvConflicts } = require('./runtime/index')
+
+warnEnvConflicts({
+    rootEnvPath: config.relativeEnvPaths.rootEnvPath && path.resolve(dirname, config.relativeEnvPaths.rootEnvPath),
+    schemaEnvPath: config.relativeEnvPaths.schemaEnvPath && path.resolve(dirname, config.relativeEnvPaths.schemaEnvPath)
+})
 
 const PrismaClient = getPrismaClient(config)
 exports.PrismaClient = PrismaClient
 Object.assign(exports, Prisma)
-export { exports as default, Prisma, PrismaClient }
 

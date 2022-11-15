@@ -1,45 +1,45 @@
 import { helpers } from "https://deno.land/x/oak@v7.4.0/mod.ts";
 import User from "../models/rds/User.ts";
 import { User as UserValidation } from "../validation/User.ts";
-import { PrismaClient } from '../generated/client/deno/edge.ts'
+import { PrismaClient } from '../prisma/client/deno/edge.ts'
 
 const prisma = new PrismaClient()
 
 class RolesController {
-    list = async (_ctx: any) => {
+    list = async (ctx: any) => {
+        try {
+            const queryParams = helpers.getQuery(ctx);
 
-        await prisma.user.findMany().then((users) => {
-            console.log(users);
-        })
-            .catch(e => {
-                throw e
-            })
-            .finally(async () => {
-                await prisma.$disconnect()
-            });
-        // try {
-        //     const queryParams = helpers.getQuery(ctx);
+            const allUsers =
+                await prisma.user.findMany().then((users) => {
+                    return users;
+                })
+                    .catch(e => {
+                        throw e
+                    })
+                    .finally(async () => {
+                        await prisma.$disconnect()
+                    });
 
-        //     const allUsers = await User.all();
-        //     if (allUsers) {
-        //         ctx.response.status = 200;
-        //         ctx.response.body = {
-        //             success: true,
-        //             data: allUsers,
-        //         };
-        //     } else {
-        //         ctx.response.status = 500;
-        //         ctx.response.body = {
-        //             success: false,
-        //             msg: "Internal Server Error",
-        //         };
-        //     }
-        // } catch (err) {
-        //     ctx.response.body = {
-        //         success: false,
-        //         msg: err.toString(),
-        //     };
-        // }
+            if (allUsers) {
+                ctx.response.status = 200;
+                ctx.response.body = {
+                    success: true,
+                    data: allUsers,
+                };
+            } else {
+                ctx.response.status = 500;
+                ctx.response.body = {
+                    success: false,
+                    msg: "Internal Server Error",
+                };
+            }
+        } catch (err) {
+            ctx.response.body = {
+                success: false,
+                msg: err.toString(),
+            };
+        }
     };
 
     // create = async ({ response, request }: { response: any, request: any }) => {
